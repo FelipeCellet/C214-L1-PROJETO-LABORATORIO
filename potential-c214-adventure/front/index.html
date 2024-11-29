@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Virtual</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #calculator {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 80%;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <h1>Calculadora Virtual</h1>
+        <input type="text" id="input1" placeholder="Número 1">
+        <input type="text" id="input2" placeholder="Número 2">
+        <br>
+        <button onclick="setOperation('soma')">Soma (+)</button>
+        <button onclick="setOperation('subtracao')">Subtração (-)</button>
+        <button onclick="setOperation('multiplicacao')">Multiplicação (*)</button>
+        <button onclick="setOperation('divisao')">Divisão (/)</button>
+        <button onclick="setOperation('media')">Media (Me)</button>
+        <button onclick="setOperation('restoDivisao')">Resto da divisão (%)</button>
+        <button onclick="setOperation('potenciacao')">Potenciação (^)</button>
+        <button onclick="getApiResult()">Obter Resultado da API</button>
+        <br>
+        <p id="result">Resultado: </p>
+    </div>
+
+    <script>
+        let operation = ''; 
+        function setOperation(op) {
+            operation = op;
+        }
+
+        function getApiResult() {
+            const num1 = document.getElementById('input1').value;
+            const num2 = document.getElementById('input2').value;
+
+            if (!operation) {
+                alert('Escolha uma operação antes de obter o resultado.');
+                return;
+            }
+
+            fetch(`http://localhost:3000/${operation}/${num1}/${num2}`)
+                .then(response => response.json())
+                .then(data => {
+                    const resultElement = document.getElementById('result');
+                    resultElement.textContent = `Resultado: ${data.resultado}`;
+                })
+                .catch(error => {
+                    console.error('Erro ao chamar a API:', error);
+                });
+        }
+    </script>
+</body>
+</html>
