@@ -49,7 +49,7 @@ Certifique-se de ter o Node.js instalado em sua máquina. Você pode baixar a ve
 
 Clone o repositório para sua máquina local:
 
-git clone https://github.com/usuário-do-github/projeto-calculadora-api.git
+git clone https://github.com/usuário-do-github/C214-L1-PROJETO-LABORATORIO
 Navegue até o diretório do projeto:
 
 cd potencial-c214-adventure
